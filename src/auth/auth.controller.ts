@@ -2,6 +2,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthSignUpDto } from './dto/auth-signup.dto';
+import { AuthSignInDto } from './dto/auth-signin.dto';
+import { userJwtResponse } from './user-jwt-response.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -12,5 +14,10 @@ export class AuthController {
    @Post('/signup')
   async signUp(@Body() authSignUpDto: AuthSignUpDto): Promise<string> {
     return this.authService.signUp(authSignUpDto);
+  }
+
+  @Post('/signin')
+  async signIn(@Body() AuthSignInDto:AuthSignInDto):Promise<userJwtResponse>{
+    return this.authService.signIn(AuthSignInDto)
   }
 }
