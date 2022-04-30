@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
-import { ExpenseModule } from './expense/expense.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   // Updated imports to finailize configuration
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), AuthModule, ExpenseModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), AuthModule, ProductModule],
   controllers: [AppController],
   providers: [AppService],
 })
