@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 
 //Imported TypeOrmModule and UserRepository
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository } from './user.repository';
+import { UserRepository } from '../repository/user/user.repository';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 

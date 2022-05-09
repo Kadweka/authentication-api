@@ -1,4 +1,4 @@
-import { IsString, IsEmail, MinLength, Matches } from 'class-validator';
+import { IsString, IsEmail, MinLength, Matches, IsNumber } from 'class-validator';
 
 export class AuthSignUpDto {
   @IsEmail()
@@ -18,4 +18,8 @@ export class AuthSignUpDto {
 
   @IsString()
   lastname: string;
+
+
+  @IsNumber()
+  phoneNumber: string;
 }

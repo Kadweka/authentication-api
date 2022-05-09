@@ -9,8 +9,8 @@ import {
     UseGuards,
   } from '@nestjs/common';
   import { ProductService } from './product.service';
-  import { CreateProductDTO } from './dto/create-product.dto';
-  import { Product } from './product.entity';
+  import { CreateProductDTO } from '../dto/product/create-product.dto';
+  import { Product } from '../entity/product/product.entity';
 import { AuthGuard } from '@nestjs/passport';
   
   @Controller('product')
@@ -38,10 +38,10 @@ import { AuthGuard } from '@nestjs/passport';
     public async getProduct(@Param('productId') productId: number) {
       const product = await this.productService.getProduct(productId);
       return product;
-    }
+    }    // @UseGuards(AuthGuard())
+
   
     @Patch('/edit/:productId')
-    // @UseGuards(AuthGuard())
     public async editProduct(
       @Body() createProductDto: CreateProductDTO,
       @Param('productId') productId: number,
@@ -54,7 +54,6 @@ import { AuthGuard } from '@nestjs/passport';
     }
   
     @Delete('/delete/:productId')
-    @UseGuards(AuthGuard())
     public async deleteProduct(@Param('productId') productId: number) {
       const deletedProduct = await this.productService.deleteProduct(productId);
       return deletedProduct;

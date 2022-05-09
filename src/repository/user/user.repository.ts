@@ -1,19 +1,19 @@
 import { Repository, EntityRepository } from 'typeorm';
-import { User } from './user.entity';
-import { AuthSignUpDto } from './dto/auth-signup.dto';
+import { User } from '../../entity/user/user.entity';
+import { AuthSignUpDto } from 'src/dto/user/auth-signup.dto';
 import {
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { SignInResponse } from './dto/auth-signinresponse.dto';
+import { SignInResponse } from 'src/dto/user/auth-signinresponse.dto';
 import * as bcrypt from 'bcrypt';
-import { AuthSignInDto } from './dto/auth-signin.dto';
+import { AuthSignInDto } from '../../dto/user/auth-signin.dto';
 
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
   async signUp(authSignUpDto: AuthSignUpDto): Promise<string> {
-    const { email, password, firstname, lastname } = authSignUpDto;
+    const { email, password, firstname, lastname,phoneNumber } = authSignUpDto;
 
     const user = new User();
 
@@ -22,6 +22,7 @@ export class UserRepository extends Repository<User> {
     user.email = email;
     user.firstname = firstname;
     user.lastname = lastname;
+    user.phoneNumber=phoneNumber;
 
     try {
       await user.save();
@@ -50,5 +51,16 @@ export class UserRepository extends Repository<User> {
     }else{
       return null;
     }
+  }
+  async editUser(authSignUpDto:AuthSignUpDto,editedUser: User,):Promise<User>{
+    const {email,firstname,lastname,phoneNumber,password}=authSignUpDto;
+    editedUser.email=email;
+    editedUser.firstname=firstname;
+    editedUser.lastname=lastname;
+    editedUser.phoneNumber=phoneNumber;
+
+    await editedUser.save();
+
+    return editedUser;
   }
 }
